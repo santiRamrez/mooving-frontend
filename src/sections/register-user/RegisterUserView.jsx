@@ -18,6 +18,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { bgGradient } from 'src/theme/css';
 
 import Logo from 'src/components/logo';
+import InputWord from 'src/components/form-inputs';
 
 export default function RegisterUserView() {
   const theme = useTheme();
@@ -31,6 +32,32 @@ export default function RegisterUserView() {
     password: '',
     rol: '',
   });
+  const [error, setError] = useState({
+    name: {
+      status: false,
+      msg: 'Ej: Ricardo',
+    },
+    lastname: {
+      status: false,
+      msg: 'Ej: Rodriguez',
+    },
+    rut: {
+      status: false,
+      msg: '12.345.678-9',
+    },
+    phone: {
+      status: false,
+      msg: '9 8765 4321',
+    },
+    email: {
+      status: false,
+      msg: 'tucorreo@tudominio.cl',
+    },
+    psword: {
+      status: false,
+      msg: 'Ej: tuclave',
+    },
+  });
 
   const handleChange = (e) => {
     setData((prev) => {
@@ -40,21 +67,31 @@ export default function RegisterUserView() {
       };
       return output;
     });
+    checkError(e);
   };
 
   const checkError = (e) => {
-    const output = {
-      error: false,
-      msg: '',
-    };
     if (e.target.name === 'name') {
-      const regex = /^[a-z]+$/;
+      const regex = /^[a-z]+/gi;
       const val = data.name;
       if (regex.test(val) === false) {
-        //
+        setError((prev) => {
+          const obj = {
+            ...prev,
+            name: { status: true, msg: 'Ej: Ricardo' },
+          };
+          return obj;
+        });
+      } else {
+        setError((prev) => {
+          const obj = {
+            ...prev,
+            name: { status: false, msg: '' },
+          };
+          return obj;
+        });
       }
     }
-    return output;
   };
 
   return (
@@ -90,21 +127,21 @@ export default function RegisterUserView() {
             <Typography variant="h4">Crea una cuenta</Typography>
             <Stack direction="row" alignItems="flex-start" justifyContent="flex-end" spacing={1}>
               <TextField
-                error
                 size="small"
                 name="name"
                 label="Nombre"
                 onChange={handleChange}
                 value={data.name}
-                helperText="Ej: Ricardo"
-                onBlur={checkError}
+                error={error.name.status}
+                helperText={error.name.status ? error.name.msg : ''}
               />
-              <TextField
+              <InputWord
                 size="small"
                 name="lastname"
                 label="Apellido"
-                onChange={handleChange}
-                value={data.lastname}
+                error={false}
+                helpText="Ej: Rodriguez"
+                regex={/^[a-z]+/gi}
               />
             </Stack>
             <TextField
@@ -113,6 +150,8 @@ export default function RegisterUserView() {
               label="RUT"
               onChange={handleChange}
               value={data.rut}
+              error={error.rut.status}
+              helperText={error.rut.status ? error.rut.msg : ''}
             />
             <TextField
               size="small"
@@ -120,6 +159,8 @@ export default function RegisterUserView() {
               label="Teléfono"
               onChange={handleChange}
               value={data.phone}
+              error={error.phone.status}
+              helperText={error.phone.status ? error.phone.msg : ''}
             />
             <TextField
               size="small"
@@ -127,6 +168,8 @@ export default function RegisterUserView() {
               label="Correo Electrónico"
               onChange={handleChange}
               value={data.email}
+              error={error.email.status}
+              helperText={error.email.status ? error.email.msg : ''}
             />
             <TextField
               size="small"
@@ -134,6 +177,8 @@ export default function RegisterUserView() {
               label="Contraseña"
               onChange={handleChange}
               value={data.password}
+              error={error.psword.status}
+              helperText={error.psword.status ? error.psword.msg : ''}
             />
             <FormControl>
               <FormLabel id="btn-radio-label">Rol</FormLabel>
