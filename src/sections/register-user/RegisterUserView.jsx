@@ -59,7 +59,6 @@ export default function RegisterUserView() {
 
     try {
       setLoading(true);
-
       HTTP.postRecord(JSON.stringify(data), 'users').then((response) => console.log(response));
     } catch (err) {
       console.log(err);

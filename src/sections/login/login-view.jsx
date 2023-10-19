@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -13,11 +13,10 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
 
-// import { RouterLink } from 'src/routes/components';
-
 import { useRouter } from 'src/routes/hooks';
 
 import HttpsReq from 'src/utils/httpsReq';
+import { checkJWT } from 'src/utils/checkJWT';
 
 import { bgGradient } from 'src/theme/css';
 
@@ -38,6 +37,12 @@ export default function LoginView() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (checkJWT()) {
+      router.push('/dashboard');
+    }
+  });
+
   const handleInput = (e) => {
     setLoginValues((prev) => {
       const output = {
@@ -53,18 +58,17 @@ export default function LoginView() {
 
     if (loginValues.email && loginValues.password) {
       setLoading(true);
-      // const json = JSON.stringify(loginValues);
-      const users = HTTP.getAll('auth/').then((data) => {
-        if (data) {
-          const user = data.filter(
-            (obj) => obj.email === loginValues.email && obj.password === loginValues.password
-          );
-          if (user.length === 1) {
-            router.push('/dashboard', { state: { auth: true, data: user[0] } });
-          } else {
-            //  Show error message
-            router.push('/dashboard', { state: { auth: false, data: user[0] } });
-          }
+
+      HTTP.postRecord(JSON.stringify(loginValues), 'auth').then((response) => {
+        if (response.data) {
+          const jwt = response.data.session_token || false;
+          localStorage.setItem('JWT', jwt);
+
+          // Mostrar mensaje usuario autenticado
+
+          router.push('/dashboard', { state: response.data });
+        } else {
+          console.log('Error en la peticion');
         }
       });
     }
