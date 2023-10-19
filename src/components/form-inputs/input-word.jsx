@@ -3,11 +3,18 @@ import { useRef, useState } from 'react';
 
 import TextField from '@mui/material/TextField';
 
-const InputWord = ({ size = '', name = '', label = '', error = false, helpText = '', regex }) => {
+const InputWord = ({
+  size = '',
+  name = '',
+  label = '',
+  helpText = '',
+  regex,
+  value = (f) => f,
+}) => {
   const ref = useRef(null);
   const [data, setData] = useState({
     value: '',
-    status: error,
+    error: false,
     msg: helpText,
     rgx: regex,
   });
@@ -21,15 +28,16 @@ const InputWord = ({ size = '', name = '', label = '', error = false, helpText =
       return output;
     });
 
-    checkError();
+    checkError(e.target.value);
+    value({ name, value: e.target.value });
   };
 
-  const checkError = () => {
-    if (data.rgx.test(data.value) === false) {
+  const checkError = (val) => {
+    if (data.rgx.test(val) === false) {
       setData((prev) => {
         const obj = {
           ...prev,
-          status: true,
+          error: true,
         };
         return obj;
       });
@@ -37,7 +45,7 @@ const InputWord = ({ size = '', name = '', label = '', error = false, helpText =
       setData((prev) => {
         const obj = {
           ...prev,
-          status: false,
+          error: false,
         };
         return obj;
       });
@@ -51,8 +59,8 @@ const InputWord = ({ size = '', name = '', label = '', error = false, helpText =
       name={name}
       label={label}
       onChange={handleChange}
-      error={data.status}
-      helperText={data.status ? data.msg : ''}
+      error={data.error}
+      helperText={data.error ? data.msg : ''}
     />
   );
 };
@@ -61,9 +69,9 @@ InputWord.propTypes = {
   size: PropTypes.string,
   name: PropTypes.string,
   label: PropTypes.string,
-  error: PropTypes.bool,
   helpText: PropTypes.string,
   regex: PropTypes.instanceOf(RegExp),
+  value: PropTypes.func,
 };
 
 export default InputWord;

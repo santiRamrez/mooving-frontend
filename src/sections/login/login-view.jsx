@@ -13,7 +13,11 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
 
+// import { RouterLink } from 'src/routes/components';
+
 import { useRouter } from 'src/routes/hooks';
+
+import HttpsReq from 'src/utils/httpsReq';
 
 import { bgGradient } from 'src/theme/css';
 
@@ -23,12 +27,16 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
+  const HTTP = new HttpsReq();
   const theme = useTheme();
-
   const router = useRouter();
 
-  const [loginValues, setLoginValues] = useState({});
+  const [loginValues, setLoginValues] = useState({
+    email: '',
+    password: '',
+  });
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const handleInput = (e) => {
     setLoginValues((prev) => {
@@ -40,8 +48,26 @@ export default function LoginView() {
     });
   };
 
-  const handleSubmit = () => {
-    router.push('/dashboard');
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (loginValues.email && loginValues.password) {
+      setLoading(true);
+      // const json = JSON.stringify(loginValues);
+      const users = HTTP.getAll('auth/').then((data) => {
+        if (data) {
+          const user = data.filter(
+            (obj) => obj.email === loginValues.email && obj.password === loginValues.password
+          );
+          if (user.length === 1) {
+            router.push('/dashboard', { state: { auth: true, data: user[0] } });
+          } else {
+            //  Show error message
+            router.push('/dashboard', { state: { auth: false, data: user[0] } });
+          }
+        }
+      });
+    }
   };
 
   const renderForm = (
@@ -85,6 +111,7 @@ export default function LoginView() {
         variant="contained"
         color="inherit"
         onClick={handleSubmit}
+        loading={isLoading}
       >
         Login
       </LoadingButton>

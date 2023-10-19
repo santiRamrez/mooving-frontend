@@ -5,7 +5,6 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Radio from '@mui/material/Radio';
 import FormLabel from '@mui/material/FormLabel';
-import TextField from '@mui/material/TextField';
 import RadioGroup from '@mui/material/RadioGroup';
 import Typography from '@mui/material/Typography';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -14,6 +13,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 // import { useRouter } from 'src/routes/hooks';
+import HttpsReq from 'src/utils/httpsReq';
 
 import { bgGradient } from 'src/theme/css';
 
@@ -21,8 +21,9 @@ import Logo from 'src/components/logo';
 import InputWord from 'src/components/form-inputs';
 
 export default function RegisterUserView() {
+  const HTTP = new HttpsReq();
   const theme = useTheme();
-  // const handleSubmit = '';
+  const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState({
     name: '',
     lastname: '',
@@ -32,34 +33,18 @@ export default function RegisterUserView() {
     password: '',
     rol: '',
   });
-  const [error, setError] = useState({
-    name: {
-      status: false,
-      msg: 'Ej: Ricardo',
-    },
-    lastname: {
-      status: false,
-      msg: 'Ej: Rodriguez',
-    },
-    rut: {
-      status: false,
-      msg: '12.345.678-9',
-    },
-    phone: {
-      status: false,
-      msg: '9 8765 4321',
-    },
-    email: {
-      status: false,
-      msg: 'tucorreo@tudominio.cl',
-    },
-    psword: {
-      status: false,
-      msg: 'Ej: tuclave',
-    },
-  });
 
-  const handleChange = (e) => {
+  const handleChange = (obj) => {
+    setData((prev) => {
+      const output = {
+        ...prev,
+        [obj.name]: obj.value,
+      };
+      return output;
+    });
+  };
+
+  const handleRadioBtns = (e) => {
     setData((prev) => {
       const output = {
         ...prev,
@@ -67,30 +52,17 @@ export default function RegisterUserView() {
       };
       return output;
     });
-    checkError(e);
   };
 
-  const checkError = (e) => {
-    if (e.target.name === 'name') {
-      const regex = /^[a-z]+/gi;
-      const val = data.name;
-      if (regex.test(val) === false) {
-        setError((prev) => {
-          const obj = {
-            ...prev,
-            name: { status: true, msg: 'Ej: Ricardo' },
-          };
-          return obj;
-        });
-      } else {
-        setError((prev) => {
-          const obj = {
-            ...prev,
-            name: { status: false, msg: '' },
-          };
-          return obj;
-        });
-      }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+
+      HTTP.postRecord(JSON.stringify(data), 'users').then((response) => console.log(response));
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -126,66 +98,61 @@ export default function RegisterUserView() {
           <Stack spacing={2}>
             <Typography variant="h4">Crea una cuenta</Typography>
             <Stack direction="row" alignItems="flex-start" justifyContent="flex-end" spacing={1}>
-              <TextField
+              <InputWord
                 size="small"
                 name="name"
                 label="Nombre"
-                onChange={handleChange}
-                value={data.name}
-                error={error.name.status}
-                helperText={error.name.status ? error.name.msg : ''}
+                helpText="Ej: Daniel"
+                regex={/^[a-z]{2,}$/i}
+                value={(obj) => handleChange(obj)}
               />
               <InputWord
                 size="small"
                 name="lastname"
                 label="Apellido"
-                error={false}
                 helpText="Ej: Rodriguez"
-                regex={/^[a-z]+/gi}
+                regex={/^[a-z]{2,}$/i}
+                value={(obj) => handleChange(obj)}
               />
             </Stack>
-            <TextField
+            <InputWord
               size="small"
               name="rut"
               label="RUT"
-              onChange={handleChange}
-              value={data.rut}
-              error={error.rut.status}
-              helperText={error.rut.status ? error.rut.msg : ''}
+              helpText="Ej: 9.345.678-9"
+              regex={/^\d{1,2}\.\d\d\d\.\d\d\d-(\d|k)$/i}
+              value={(obj) => handleChange(obj)}
             />
-            <TextField
+            <InputWord
               size="small"
               name="phone"
               label="Teléfono"
-              onChange={handleChange}
-              value={data.phone}
-              error={error.phone.status}
-              helperText={error.phone.status ? error.phone.msg : ''}
+              helpText="Ej: +56 9 8465 5623"
+              regex={/^\d{1,2}\s\d\d\d\d\s\d\d\d\d$/}
+              value={(obj) => handleChange(obj)}
             />
-            <TextField
+            <InputWord
               size="small"
               name="email"
               label="Correo Electrónico"
-              onChange={handleChange}
-              value={data.email}
-              error={error.email.status}
-              helperText={error.email.status ? error.email.msg : ''}
+              helpText="Ej: tucorreo@tudominio.com"
+              regex={/^[a-z]+\.?_?\w+@[a-z]\w+\.([a-z][a-z]|[a-z][a-z][a-z])$/}
+              value={(obj) => handleChange(obj)}
             />
-            <TextField
+            <InputWord
               size="small"
               name="password"
               label="Contraseña"
-              onChange={handleChange}
-              value={data.password}
-              error={error.psword.status}
-              helperText={error.psword.status ? error.psword.msg : ''}
+              helpText="Al menos 5 caracteres "
+              regex={/.{5,}/}
+              value={(obj) => handleChange(obj)}
             />
             <FormControl>
               <FormLabel id="btn-radio-label">Rol</FormLabel>
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
                 name="rol"
-                onChange={handleChange}
+                onChange={handleRadioBtns}
               >
                 <FormControlLabel value="cargo" control={<Radio />} label="Transportista" />
                 <FormControlLabel
@@ -195,7 +162,15 @@ export default function RegisterUserView() {
                 />
               </RadioGroup>
             </FormControl>
-            <LoadingButton fullWidth size="large" type="submit" variant="contained" color="inherit">
+            <LoadingButton
+              fullWidth
+              size="large"
+              type="submit"
+              variant="contained"
+              color="inherit"
+              onClick={handleSubmit}
+              loading={isLoading}
+            >
               Registrar Usuario
             </LoadingButton>
           </Stack>
