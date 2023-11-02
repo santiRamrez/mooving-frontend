@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 
 const InputWord = ({
   size = '',
+  type = 'text',
   name = '',
   label = '',
   helpText = '',
@@ -54,6 +55,7 @@ const InputWord = ({
 
   return (
     <TextField
+      type={type}
       ref={ref}
       size={size}
       name={name}
@@ -67,6 +69,7 @@ const InputWord = ({
 
 InputWord.propTypes = {
   size: PropTypes.string,
+  type: PropTypes.string,
   name: PropTypes.string,
   label: PropTypes.string,
   helpText: PropTypes.string,

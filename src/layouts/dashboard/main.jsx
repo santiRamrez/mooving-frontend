@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 
 import Box from '@mui/material/Box';
 
-import HttpsReq from 'src/utils/httpsReq';
-
 import { useRouter } from 'src/routes/hooks';
 
 import { useResponsive } from 'src/hooks/use-responsive';
+
+import HttpsReq from 'src/utils/httpsReq';
 
 import { NAV, HEADER } from './config-layout';
 

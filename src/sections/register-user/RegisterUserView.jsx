@@ -19,6 +19,7 @@ import { bgGradient } from 'src/theme/css';
 
 import Logo from 'src/components/logo';
 import InputWord from 'src/components/form-inputs';
+import MultipleSelectChip from 'src/components/form-select/multiple-select-chip';
 
 export default function RegisterUserView() {
   const HTTP = new HttpsReq();
@@ -31,6 +32,7 @@ export default function RegisterUserView() {
     phone: '',
     email: '',
     password: '',
+    regions: '',
     rol: '',
   });
 
@@ -54,8 +56,25 @@ export default function RegisterUserView() {
     });
   };
 
+  const handleMultipleSelector = (obj) => {
+    setData((prev) => {
+      const output = {
+        ...prev,
+        [obj.name]: obj.value,
+      };
+      return output;
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const keys = Object.keys(data);
+    const emptyValues = keys.filter((key) => data[key] !== '');
+    if (emptyValues) {
+      alert('Complete todos los campos');
+      return;
+    }
 
     try {
       setLoading(true);
@@ -72,7 +91,6 @@ export default function RegisterUserView() {
           color: alpha(theme.palette.background.default, 0.9),
           imgUrl: '/assets/background/overlay_4.jpg',
         }),
-        height: 1,
       }}
     >
       <Logo
@@ -87,7 +105,8 @@ export default function RegisterUserView() {
           sx={{
             p: 4,
             width: 1,
-            maxWidth: 420,
+            maxWidth: 500,
+            my: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'spaceAround',
@@ -96,7 +115,7 @@ export default function RegisterUserView() {
         >
           <Stack spacing={2}>
             <Typography variant="h4">Crea una cuenta</Typography>
-            <Stack direction="row" alignItems="flex-start" justifyContent="flex-end" spacing={1}>
+            <Stack direction="row" alignItems="flex-start" justifyContent="flex-start" spacing={1}>
               <InputWord
                 size="small"
                 name="name"
@@ -114,22 +133,24 @@ export default function RegisterUserView() {
                 value={(obj) => handleChange(obj)}
               />
             </Stack>
-            <InputWord
-              size="small"
-              name="rut"
-              label="RUT"
-              helpText="Ej: 9.345.678-9"
-              regex={/^\d{1,2}\.\d\d\d\.\d\d\d-(\d|k)$/i}
-              value={(obj) => handleChange(obj)}
-            />
-            <InputWord
-              size="small"
-              name="phone"
-              label="Teléfono"
-              helpText="Ej: +56 9 8465 5623"
-              regex={/^\d{1,2}\s\d\d\d\d\s\d\d\d\d$/}
-              value={(obj) => handleChange(obj)}
-            />
+            <Stack direction="row" alignItems="flex-start" justifyContent="flex-start" spacing={1}>
+              <InputWord
+                size="small"
+                name="rut"
+                label="RUT"
+                helpText="Ej: 9.345.678-9"
+                regex={/^\d{1,2}\.\d\d\d\.\d\d\d-(\d|k)$/i}
+                value={(obj) => handleChange(obj)}
+              />
+              <InputWord
+                size="small"
+                name="phone"
+                label="Teléfono"
+                helpText="Ej: +56 9 8465 5623"
+                regex={/^\d{1,2}\s\d\d\d\d\s\d\d\d\d$/}
+                value={(obj) => handleChange(obj)}
+              />
+            </Stack>
             <InputWord
               size="small"
               name="email"
@@ -140,12 +161,21 @@ export default function RegisterUserView() {
             />
             <InputWord
               size="small"
+              type="password"
               name="password"
               label="Contraseña"
               helpText="Al menos 5 caracteres "
               regex={/.{5,}/}
               value={(obj) => handleChange(obj)}
             />
+
+            <MultipleSelectChip
+              label="Regiones"
+              name="regions"
+              arr={['Region Metropolitana', 'Region de Valparaiso']}
+              output={(obj) => handleMultipleSelector(obj)}
+            />
+
             <FormControl>
               <FormLabel id="btn-radio-label">Rol</FormLabel>
               <RadioGroup

@@ -1,41 +1,30 @@
-import SvgColor from 'src/components/svg-color';
+import ReceiptOutlinedIcon from '@mui/icons-material/ReceiptOutlined';
+import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 
 // ----------------------------------------------------------------------
-
-const icon = (name) => (
-  <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
-);
 
 const navConfig = [
   {
     title: 'Resumen',
-    path: '/',
-    icon: icon('ic_analytics'),
+    path: '/dashboard',
+    icon: <BarChartOutlinedIcon />,
   },
   {
-    title: 'Mi Perfil',
-    path: '/user',
-    icon: icon('ic_user'),
+    title: 'Transportistas',
+    path: '/carrier',
+    icon: <LocalShippingOutlinedIcon />,
+  },
+  {
+    title: 'Solicitantes de Fletes',
+    path: '/petitioner',
+    icon: <AccountCircleOutlinedIcon />,
   },
   {
     title: 'Fletes Realizados',
-    path: '/products',
-    icon: icon('ic_cart'),
-  },
-  {
-    title: 'blog',
-    path: '/blog',
-    icon: icon('ic_blog'),
-  },
-  {
-    title: 'login',
-    path: '/login',
-    icon: icon('ic_lock'),
-  },
-  {
-    title: 'Not found',
-    path: '/404',
-    icon: icon('ic_disabled'),
+    path: '/shipments',
+    icon: <ReceiptOutlinedIcon />,
   },
 ];
 

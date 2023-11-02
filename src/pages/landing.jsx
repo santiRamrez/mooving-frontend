@@ -1,17 +1,16 @@
 import { Helmet } from 'react-helmet-async';
 
-import { BlogView } from 'src/sections/blog/view';
+import LandingLayout from 'src/layouts/landing';
 
 // ----------------------------------------------------------------------
 
-export default function BlogPage() {
+export default function LandingPage() {
   return (
     <>
       <Helmet>
-        <title> Blog | Minimal UI </title>
+        <title> Mooving | Logística de Fletes </title>
       </Helmet>
-
-      <BlogView />
+      <LandingLayout />
     </>
   );
 }

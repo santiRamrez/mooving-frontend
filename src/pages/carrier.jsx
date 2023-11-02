@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 
-import { UserView } from 'src/sections/user/view';
+import { CarrierView } from 'src/sections/carrier/view';
 
 // ----------------------------------------------------------------------
 
-export default function UserPage() {
+export default function CarrierPage() {
   return (
     <>
       <Helmet>
-        <title> User | Minimal UI </title>
+        <title> Transportistas | Mooving </title>
       </Helmet>
 
-      <UserView />
+      <CarrierView />
     </>
   );
 }

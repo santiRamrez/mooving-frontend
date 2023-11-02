@@ -6,20 +6,18 @@ Mooving es un proyecto de mi grupo de estudio en INACAP que consiste en una app 
 
 **Client:** React, React-Router, Material UI Template
 
-**Testing Server:** Json-server.
-
 ## Ejecuta de manera local
 
 Clone the project
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/santiRamrez/mooving-frontend.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd material-ui-react
+  cd mooving-frontend
 ```
 
 Install dependencies

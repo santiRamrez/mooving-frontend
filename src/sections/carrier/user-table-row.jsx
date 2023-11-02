@@ -20,9 +20,11 @@ export default function UserTableRow({
   selected,
   name,
   avatarUrl,
-  company,
-  role,
-  isVerified,
+  lastname,
+  email,
+  local_id,
+  phone,
+  scope,
   status,
   handleClick,
 }) {
@@ -36,6 +38,12 @@ export default function UserTableRow({
     setOpen(null);
   };
 
+  const colorLabel = (str) => {
+    if (str === 'Pendiente') return 'warning';
+    if (str === 'Verificado') return 'success';
+    return 'error';
+  };
+
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
@@ -43,23 +51,27 @@ export default function UserTableRow({
           <Checkbox disableRipple checked={selected} onChange={handleClick} />
         </TableCell>
 
-        <TableCell component="th" scope="row" padding="none">
+        <TableCell scope="row" padding="none">
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar alt={name} src={avatarUrl} />
-            <Typography variant="subtitle2" noWrap>
+            <Typography variant="subtitle3" noWrap>
               {name}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell>{company}</TableCell>
+        <TableCell>{lastname}</TableCell>
 
-        <TableCell>{role}</TableCell>
+        <TableCell>{email}</TableCell>
 
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
+        <TableCell>{local_id}</TableCell>
+
+        <TableCell>{phone}</TableCell>
+
+        <TableCell>{scope}</TableCell>
 
         <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
+          <Label color={colorLabel(status)}>{status}</Label>
         </TableCell>
 
         <TableCell align="right">
@@ -95,11 +107,13 @@ export default function UserTableRow({
 
 UserTableRow.propTypes = {
   avatarUrl: PropTypes.any,
-  company: PropTypes.any,
-  handleClick: PropTypes.func,
-  isVerified: PropTypes.any,
   name: PropTypes.any,
-  role: PropTypes.any,
+  lastname: PropTypes.any,
+  handleClick: PropTypes.func,
+  email: PropTypes.any,
+  scope: PropTypes.any,
+  local_id: PropTypes.any,
+  phone: PropTypes.any,
   selected: PropTypes.any,
   status: PropTypes.string,
 };
