@@ -15,7 +15,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { useRouter } from 'src/routes/hooks';
 
-import HttpsReq from 'src/utils/httpsReq';
 import { checkJWT } from 'src/utils/checkJWT';
 
 import { bgGradient } from 'src/theme/css';
@@ -26,7 +25,6 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
-  const HTTP = new HttpsReq();
   const theme = useTheme();
   const router = useRouter();
 
@@ -59,18 +57,18 @@ export default function LoginView() {
     if (loginValues.email && loginValues.password) {
       setLoading(true);
 
-      HTTP.postRecord(JSON.stringify(loginValues), 'auth').then((response) => {
-        if (response.data) {
-          const jwt = response.data.session_token || false;
-          localStorage.setItem('JWT', jwt);
+      // HTTP.postRecord(JSON.stringify(loginValues), 'auth').then((response) => {
+      //   if (response.data) {
+      //     const jwt = response.data.session_token || false;
+      //     localStorage.setItem('JWT', jwt);
 
-          // Mostrar mensaje usuario autenticado
+      //     // Mostrar mensaje usuario autenticado
 
-          router.push('/dashboard', { state: response.data });
-        } else {
-          console.log('Error en la peticion');
-        }
-      });
+      //     router.push('/dashboard', { state: response.data });
+      //   } else {
+      //     console.log('Error en la peticion');
+      //   }
+      // });
     }
   };
 

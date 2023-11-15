@@ -13,7 +13,6 @@ import { alpha, useTheme } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 // import { useRouter } from 'src/routes/hooks';
-import HttpsReq from 'src/utils/httpsReq';
 
 import { bgGradient } from 'src/theme/css';
 
@@ -22,7 +21,6 @@ import InputWord from 'src/components/form-inputs';
 import MultipleSelectChip from 'src/components/form-select/multiple-select-chip';
 
 export default function RegisterUserView() {
-  const HTTP = new HttpsReq();
   const theme = useTheme();
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState({
@@ -78,7 +76,7 @@ export default function RegisterUserView() {
 
     try {
       setLoading(true);
-      HTTP.postRecord(JSON.stringify(data), 'users').then((response) => console.log(response));
+      // HTTP.postRecord(JSON.stringify(data), 'users').then((response) => console.log(response));
     } catch (err) {
       console.log(err);
     }
