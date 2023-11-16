@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Outlet, Navigate, useRoutes } from 'react-router-dom';
+import { Outlet, Navigate, createBrowserRouter } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
 
@@ -18,46 +18,44 @@ export const Page404 = lazy(() => import('src/pages/page-not-found'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
+const routes = createBrowserRouter([
+  {
+    path: '/',
+    element: <LandingPage />,
+    index: true,
+  },
+  {
+    element: (
+      <DashboardLayout>
+        <Suspense>
+          <Outlet />
+        </Suspense>
+      </DashboardLayout>
+    ),
+    children: [
+      { path: 'dashboard', element: <IndexPage /> },
+      { path: 'carrier', element: <CarrierPage /> },
+      { path: 'petitioner', element: <PetitionersPage /> },
+      { path: 'shipments', element: <ShipmentsPage /> },
+      { path: 'profile/:profileId', element: <ProfilePage /> },
+    ],
+  },
+  {
+    path: 'register',
+    element: <RegisterUserView />,
+  },
+  {
+    path: 'login',
+    element: <LoginPage />,
+  },
+  {
+    path: '404',
+    element: <Page404 />,
+  },
+  {
+    path: '*',
+    element: <Navigate to="/404" replace />,
+  },
+]);
 
-export default function Router() {
-  const routes = useRoutes([
-    {
-      element: <LandingPage />,
-      index: true,
-    },
-    {
-      element: (
-        <DashboardLayout>
-          <Suspense>
-            <Outlet />
-          </Suspense>
-        </DashboardLayout>
-      ),
-      children: [
-        { path: 'dashboard', element: <IndexPage /> },
-        { path: 'carrier', element: <CarrierPage /> },
-        { path: 'petitioner', element: <PetitionersPage /> },
-        { path: 'shipments', element: <ShipmentsPage /> },
-        { path: 'profile/:profileId', element: <ProfilePage /> },
-      ],
-    },
-    {
-      path: 'register',
-      element: <RegisterUserView />,
-    },
-    {
-      path: 'login',
-      element: <LoginPage />,
-    },
-    {
-      path: '404',
-      element: <Page404 />,
-    },
-    {
-      path: '*',
-      element: <Navigate to="/404" replace />,
-    },
-  ]);
-
-  return routes;
-}
+export default routes;
