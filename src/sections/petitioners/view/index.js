@@ -1,1 +1,1 @@
-export { default as PetitionersView } from './petitioners-view';
+export { default as PetitionerView } from './petitioner-view';

@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-import { PetitionersView } from 'src/sections/petitioners/view';
+import { PetitionerView } from 'src/sections/petitioners/view';
 
 // ----------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ export default function PetitionersPage() {
         <title> Solicitantes de Flete | Mooving App </title>
       </Helmet>
 
-      <PetitionersView />
+      <PetitionerView />
     </>
   );
 }

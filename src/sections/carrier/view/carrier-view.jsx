@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
-// import { users } from 'src/_mock/user';
+import { users } from 'src/_mock/user';
 
 import Iconify from 'src/components/iconify';
 
@@ -24,7 +24,7 @@ import { emptyRows, applyFilter, getComparator } from '../utils';
 
 // ----------------------------------------------------------------------
 
-export default function UserPage({ carriersData }) {
+export default function CarrierPage({ carriersData = users }) {
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -54,7 +54,7 @@ export default function UserPage({ carriersData }) {
     setSelected([]);
   };
 
-  const handleClick = (event, name) => {
+  const handleClick = (event, name, data) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
     if (selectedIndex === -1) {
@@ -70,6 +70,7 @@ export default function UserPage({ carriersData }) {
       );
     }
     setSelected(newSelected);
+    console.log(data);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -123,9 +124,12 @@ export default function UserPage({ carriersData }) {
               headLabel={[
                 { id: 'name', label: 'Nombre' },
                 { id: 'lastname', label: 'Apellido' },
-                { id: 'email', label: 'Email' },
-                { id: 'phone', label: 'Teléfono' },
-                { id: '' },
+                { id: 'email', label: 'Email', maxWidth: '50px' },
+                { id: 'local_id', label: 'Rut', minWidth: '50px' },
+                { id: 'phone', label: 'Teléfono', minWidth: '120px' },
+                { id: 'scope', label: 'Región' },
+                { id: 'status', label: 'Status', align: 'center' },
+                {},
               ]}
             />
             <TableBody>
@@ -137,10 +141,13 @@ export default function UserPage({ carriersData }) {
                     name={row.name}
                     lastname={row.lastname}
                     email={row.email}
-                    avatarUrl={row.image}
+                    local_id={row.local_id}
+                    avatarUrl={row.avatarUrl}
                     phone={row.phone}
+                    scope={row.scope}
+                    status={row.status}
                     selected={selected.indexOf(row.name) !== -1}
-                    handleClick={(event) => handleClick(event, row.name)}
+                    handleClick={(event) => handleClick(event, row.name, row)}
                   />
                 ))}
 
@@ -168,6 +175,6 @@ export default function UserPage({ carriersData }) {
   );
 }
 
-UserPage.propTypes = {
-  carriersData: PropTypes.any,
+CarrierPage.propTypes = {
+  carriersData: PropTypes.array,
 };

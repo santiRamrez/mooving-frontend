@@ -16,7 +16,7 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function UserTableRow({
+export default function PetitionerTableRow({
   selected,
   name,
   avatarUrl,
@@ -68,9 +68,9 @@ export default function UserTableRow({
 
         <TableCell>{phone}</TableCell>
 
-        <TableCell align="center">{scope}</TableCell>
+        <TableCell>{scope}</TableCell>
 
-        <TableCell align="center">
+        <TableCell>
           <Label color={colorLabel(status)}>{status}</Label>
         </TableCell>
 
@@ -105,7 +105,7 @@ export default function UserTableRow({
   );
 }
 
-UserTableRow.propTypes = {
+PetitionerTableRow.propTypes = {
   avatarUrl: PropTypes.any,
   name: PropTypes.any,
   lastname: PropTypes.any,

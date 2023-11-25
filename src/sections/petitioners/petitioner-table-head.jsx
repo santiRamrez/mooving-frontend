@@ -11,7 +11,7 @@ import { visuallyHidden } from './utils';
 
 // ----------------------------------------------------------------------
 
-export default function UserTableHead({
+export default function PetitionerTableHead({
   order,
   orderBy,
   rowCount,
@@ -40,10 +40,7 @@ export default function UserTableHead({
             key={headCell.id}
             align={headCell.align || 'left'}
             sortDirection={orderBy === headCell.id ? order : false}
-            sx={{
-              minWidth: headCell.minWidth,
-              maxWidth: headCell.maxWidth,
-            }}
+            sx={{ width: headCell.width, minWidth: headCell.minWidth }}
           >
             <TableSortLabel
               hideSortIcon
@@ -65,7 +62,7 @@ export default function UserTableHead({
   );
 }
 
-UserTableHead.propTypes = {
+PetitionerTableHead.propTypes = {
   order: PropTypes.oneOf(['asc', 'desc']),
   orderBy: PropTypes.string,
   rowCount: PropTypes.number,

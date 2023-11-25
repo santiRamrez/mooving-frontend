@@ -17,14 +17,14 @@ import Iconify from 'src/components/iconify';
 
 import TableNoData from '../table-no-data';
 import TableEmptyRows from '../table-empty-rows';
-import ShipmentTableRow from '../shipment-table-row';
-import ShipmentTableHead from '../shipment-table-head';
-import ShipmentTableToolbar from '../shipment-table-toolbar';
+import PetitionerTableRow from '../petitioner-table-row';
+import PetitionerTableHead from '../petitioner-table-head';
+import PetitionerTableToolbar from '../petitioner-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
 
 // ----------------------------------------------------------------------
 
-export default function ShipmentPage({ shipmentData = users }) {
+export default function PetitionerPage({ petitionersData = users }) {
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -47,7 +47,7 @@ export default function ShipmentPage({ shipmentData = users }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = shipmentData.map((n) => n.name);
+      const newSelecteds = petitionersData.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -87,7 +87,7 @@ export default function ShipmentPage({ shipmentData = users }) {
   };
 
   const dataFiltered = applyFilter({
-    inputData: shipmentData,
+    inputData: petitionersData,
     comparator: getComparator(order, orderBy),
     filterName,
   });
@@ -97,7 +97,7 @@ export default function ShipmentPage({ shipmentData = users }) {
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Listado de Fletes</Typography>
+        <Typography variant="h4">Listado de Solicitantes de Flete</Typography>
 
         <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
           Agregar transportista
@@ -105,7 +105,7 @@ export default function ShipmentPage({ shipmentData = users }) {
       </Stack>
 
       <Card>
-        <ShipmentTableToolbar
+        <PetitionerTableToolbar
           numSelected={selected.length}
           filterName={filterName}
           onFilterName={handleFilterByName}
@@ -113,10 +113,10 @@ export default function ShipmentPage({ shipmentData = users }) {
 
         <TableContainer sx={{ overflow: 'unset' }}>
           <Table sx={{ minWidth: 800 }}>
-            <ShipmentTableHead
+            <PetitionerTableHead
               order={order}
               orderBy={orderBy}
-              rowCount={shipmentData.length}
+              rowCount={petitionersData.length}
               numSelected={selected.length}
               onRequestSort={handleSort}
               onSelectAllClick={handleSelectAllClick}
@@ -132,7 +132,7 @@ export default function ShipmentPage({ shipmentData = users }) {
               {dataFiltered
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
-                  <ShipmentTableRow
+                  <PetitionerTableRow
                     key={row.id}
                     name={row.name}
                     lastname={row.lastname}
@@ -146,7 +146,7 @@ export default function ShipmentPage({ shipmentData = users }) {
 
               <TableEmptyRows
                 height={77}
-                emptyRows={emptyRows(page, rowsPerPage, shipmentData.length)}
+                emptyRows={emptyRows(page, rowsPerPage, petitionersData.length)}
               />
 
               {notFound && <TableNoData query={filterName} />}
@@ -157,7 +157,7 @@ export default function ShipmentPage({ shipmentData = users }) {
         <TablePagination
           page={page}
           component="div"
-          count={shipmentData.length}
+          count={petitionersData.length}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}
@@ -168,6 +168,6 @@ export default function ShipmentPage({ shipmentData = users }) {
   );
 }
 
-ShipmentPage.propTypes = {
-  shipmentData: PropTypes.array,
+PetitionerPage.propTypes = {
+  petitionersData: PropTypes.array,
 };
