@@ -27,6 +27,7 @@ export default function UserTableRow({
   scope,
   status,
   handleClick,
+  sendId = (f) => f,
 }) {
   const [open, setOpen] = useState(null);
 
@@ -34,8 +35,13 @@ export default function UserTableRow({
     setOpen(event.currentTarget);
   };
 
-  const handleCloseMenu = () => {
+  const handleCloseMenu = (e) => {
     setOpen(null);
+  };
+
+  const handleEdit = (e) => {
+    handleCloseMenu();
+    sendId(local_id);
   };
 
   const colorLabel = (str) => {
@@ -47,11 +53,11 @@ export default function UserTableRow({
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
-        <TableCell padding="checkbox">
+        <TableCell padding="checkbox" size="small">
           <Checkbox disableRipple checked={selected} onChange={handleClick} />
         </TableCell>
 
-        <TableCell scope="row" padding="none">
+        <TableCell scope="row" size="small" sx={{ maxWidth: 100, overflow: 'hidden' }}>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar alt={name} src={avatarUrl} />
             <Typography variant="subtitle3" noWrap>
@@ -60,21 +66,33 @@ export default function UserTableRow({
           </Stack>
         </TableCell>
 
-        <TableCell>{lastname}</TableCell>
+        <TableCell size="small" sx={{ width: 50, maxWidth: 100, overflow: 'hidden', px: '2px' }}>
+          <Typography variant="subtitle3" noWrap>
+            {lastname}
+          </Typography>
+        </TableCell>
 
-        <TableCell>{email}</TableCell>
+        <TableCell size="small" sx={{ maxWidth: 100, overflow: 'hidden' }}>
+          <Typography variant="subtitle3">{email}</Typography>
+        </TableCell>
 
-        <TableCell>{local_id}</TableCell>
+        <TableCell size="small" align="center" sx={{ maxWidth: 100, overflow: 'hidden' }}>
+          {local_id}
+        </TableCell>
 
-        <TableCell>{phone}</TableCell>
+        <TableCell size="small" align="center" sx={{ maxWidth: 50, overflow: 'hidden' }}>
+          {phone}
+        </TableCell>
 
-        <TableCell align="center">{scope}</TableCell>
+        <TableCell padding="none" align="center">
+          {scope}
+        </TableCell>
 
-        <TableCell align="center">
+        <TableCell size="small" padding="none" align="center">
           <Label color={colorLabel(status)}>{status}</Label>
         </TableCell>
 
-        <TableCell align="right">
+        <TableCell size="small" align="left" padding="none">
           <IconButton onClick={handleOpenMenu}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
@@ -91,7 +109,7 @@ export default function UserTableRow({
           sx: { width: 140 },
         }}
       >
-        <MenuItem onClick={handleCloseMenu}>
+        <MenuItem onClick={handleEdit}>
           <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
           Edit
         </MenuItem>
@@ -116,4 +134,5 @@ UserTableRow.propTypes = {
   phone: PropTypes.any,
   selected: PropTypes.any,
   status: PropTypes.string,
+  sendId: PropTypes.func,
 };

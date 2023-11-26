@@ -35,15 +35,11 @@ export default function UserTableHead({
           />
         </TableCell>
 
-        {headLabel.map((headCell) => (
+        {headLabel.map((headCell, i) => (
           <TableCell
-            key={headCell.id}
+            key={i}
             align={headCell.align || 'left'}
             sortDirection={orderBy === headCell.id ? order : false}
-            sx={{
-              minWidth: headCell.minWidth,
-              maxWidth: headCell.maxWidth,
-            }}
           >
             <TableSortLabel
               hideSortIcon

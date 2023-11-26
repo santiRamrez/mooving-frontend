@@ -11,8 +11,10 @@ const InputWord = ({
   helpText = '',
   regex,
   value = (f) => f,
+  text = '',
 }) => {
   const ref = useRef(null);
+  const [updated, setUpdated] = useState(false);
   const [data, setData] = useState({
     value: '',
     error: false,
@@ -31,6 +33,7 @@ const InputWord = ({
 
     checkError(e.target.value);
     value({ name, value: e.target.value });
+    setUpdated(true);
   };
 
   const checkError = (val) => {
@@ -62,6 +65,7 @@ const InputWord = ({
       label={label}
       onChange={handleChange}
       error={data.error}
+      value={updated ? data.value : text}
       helperText={data.error ? data.msg : ''}
     />
   );
@@ -75,6 +79,7 @@ InputWord.propTypes = {
   helpText: PropTypes.string,
   regex: PropTypes.instanceOf(RegExp),
   value: PropTypes.func,
+  text: PropTypes.string,
 };
 
 export default InputWord;

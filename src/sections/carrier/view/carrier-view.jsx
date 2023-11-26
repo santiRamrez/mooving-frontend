@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
-import { users } from 'src/_mock/user';
+// import { users } from 'src/_mock/user';
 
 import Iconify from 'src/components/iconify';
 
@@ -21,10 +21,11 @@ import UserTableHead from '../user-table-head';
 import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
+// import { id_ID } from '@faker-js/faker';
 
 // ----------------------------------------------------------------------
 
-export default function CarrierPage({ carriersData = users }) {
+export default function CarrierPage({ data = [], toEdit = (f) => f }) {
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -37,6 +38,8 @@ export default function CarrierPage({ carriersData = users }) {
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
+  // ---------------- Table Methods ----------
+
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === 'asc';
     if (id !== '') {
@@ -47,14 +50,14 @@ export default function CarrierPage({ carriersData = users }) {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = carriersData.map((n) => n.name);
+      const newSelecteds = data.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, name, data) => {
+  const handleClick = (name) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
     if (selectedIndex === -1) {
@@ -69,8 +72,8 @@ export default function CarrierPage({ carriersData = users }) {
         selected.slice(selectedIndex + 1)
       );
     }
+
     setSelected(newSelected);
-    console.log(data);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -88,7 +91,7 @@ export default function CarrierPage({ carriersData = users }) {
   };
 
   const dataFiltered = applyFilter({
-    inputData: carriersData,
+    inputData: data,
     comparator: getComparator(order, orderBy),
     filterName,
   });
@@ -104,7 +107,6 @@ export default function CarrierPage({ carriersData = users }) {
           Agregar transportista
         </Button>
       </Stack>
-
       <Card>
         <UserTableToolbar
           numSelected={selected.length}
@@ -112,24 +114,24 @@ export default function CarrierPage({ carriersData = users }) {
           onFilterName={handleFilterByName}
         />
 
-        <TableContainer sx={{ overflow: 'unset' }}>
+        <TableContainer sx={{ overflow: 'auto' }}>
           <Table sx={{ minWidth: 800 }}>
             <UserTableHead
               order={order}
               orderBy={orderBy}
-              rowCount={carriersData.length}
+              rowCount={data.length}
               numSelected={selected.length}
               onRequestSort={handleSort}
               onSelectAllClick={handleSelectAllClick}
               headLabel={[
-                { id: 'name', label: 'Nombre' },
+                { id: 'name', label: 'Nombre', align: 'center' },
                 { id: 'lastname', label: 'Apellido' },
-                { id: 'email', label: 'Email', maxWidth: '50px' },
-                { id: 'local_id', label: 'Rut', minWidth: '50px' },
-                { id: 'phone', label: 'Teléfono', minWidth: '120px' },
-                { id: 'scope', label: 'Región' },
+                { id: 'email', label: 'Email', align: 'center' },
+                { id: 'local_id', label: 'Rut', align: 'center' },
+                { id: 'phone', label: 'Teléfono', align: 'center' },
+                { id: 'scope', label: 'Región', align: 'center' },
                 { id: 'status', label: 'Status', align: 'center' },
-                {},
+                { id: 'options', label: '', align: 'left' },
               ]}
             />
             <TableBody>
@@ -137,6 +139,7 @@ export default function CarrierPage({ carriersData = users }) {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
                   <UserTableRow
+                    handleClick={() => handleClick(row.name)}
                     key={row.id}
                     name={row.name}
                     lastname={row.lastname}
@@ -147,14 +150,11 @@ export default function CarrierPage({ carriersData = users }) {
                     scope={row.scope}
                     status={row.status}
                     selected={selected.indexOf(row.name) !== -1}
-                    handleClick={(event) => handleClick(event, row.name, row)}
+                    sendId={(id) => toEdit(id)}
                   />
                 ))}
 
-              <TableEmptyRows
-                height={77}
-                emptyRows={emptyRows(page, rowsPerPage, carriersData.length)}
-              />
+              <TableEmptyRows height={77} emptyRows={emptyRows(page, rowsPerPage, data.length)} />
 
               {notFound && <TableNoData query={filterName} />}
             </TableBody>
@@ -164,7 +164,7 @@ export default function CarrierPage({ carriersData = users }) {
         <TablePagination
           page={page}
           component="div"
-          count={carriersData.length}
+          count={data.length}
           rowsPerPage={rowsPerPage}
           onPageChange={handleChangePage}
           rowsPerPageOptions={[5, 10, 25]}
@@ -176,5 +176,6 @@ export default function CarrierPage({ carriersData = users }) {
 }
 
 CarrierPage.propTypes = {
-  carriersData: PropTypes.array,
+  data: PropTypes.array,
+  toEdit: PropTypes.func,
 };

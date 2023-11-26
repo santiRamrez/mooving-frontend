@@ -60,7 +60,7 @@ function MultipleSelectChip({ arr, label, name, output = (obj) => obj }) {
 
   return (
     <div>
-      <FormControl sx={{ width: 1 }}>
+      <FormControl sx={{ width: 1 }} size="small">
         <InputLabel sx={{ bgcolor: 'white', px: 1 / 2 }} id="multiple-chip-label">
           {label}
         </InputLabel>

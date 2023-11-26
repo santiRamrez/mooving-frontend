@@ -5,6 +5,9 @@ import DashboardLayout from 'src/layouts/dashboard';
 
 // import { getCarriers } from '../http/carriers';
 
+// Imported functions of data should return a promise
+import { getCarriers } from 'src/_mock/user';
+
 export const LandingPage = lazy(() => import('src/pages/landing'));
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const ShipmentsPage = lazy(() => import('src/pages/shipments'));
@@ -34,10 +37,7 @@ const routes = createBrowserRouter([
     ),
     children: [
       { path: 'dashboard', element: <IndexPage /> },
-      { path: 'carrier', element: <CarrierPage /> },
-      { path: 'petitioner', element: <PetitionersPage /> },
-      { path: 'shipments', element: <ShipmentsPage /> },
-      { path: 'profile/:profileId', element: <ProfilePage /> },
+      { path: 'carrier', element: <CarrierPage />, loader: getCarriers },
     ],
   },
   {
@@ -59,3 +59,7 @@ const routes = createBrowserRouter([
 ]);
 
 export default routes;
+
+//  { path: 'petitioner', element: <PetitionersPage /> },
+//  { path: 'shipments', element: <ShipmentsPage /> },
+//  { path: 'profile/:profileId', element: <ProfilePage /> },
