@@ -92,7 +92,7 @@ export default function PetitionerTableView({ data = [], toEdit = (f) => f }) {
     filterName,
   });
 
-  const notFound = !dataFiltered.length && !!filterName;
+  const notFound = !dataFiltered.length || !!filterName;
 
   return (
     <Container>
