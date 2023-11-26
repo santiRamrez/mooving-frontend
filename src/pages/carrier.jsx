@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useLoaderData } from 'react-router-dom';
 
 import { CarrierView } from 'src/sections/carrier/view';
-import ModalEditView from 'src/sections/modal-edit/ModalEditView';
+import { ModalCarrier } from 'src/sections/carrier/modal-edit';
 // ----------------------------------------------------------------------
 
 export default function CarrierPage() {
@@ -32,7 +32,7 @@ export default function CarrierPage() {
       </Helmet>
 
       <CarrierView data={data} toEdit={(id) => choosenEdit(id)} />
-      <ModalEditView showUp={modalEdit} values={selectedCarrier} close={(id) => cleanData(id)} />
+      <ModalCarrier showUp={modalEdit} values={selectedCarrier} close={(id) => cleanData(id)} />
     </>
   );
 }

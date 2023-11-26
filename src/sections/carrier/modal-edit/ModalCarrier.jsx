@@ -24,7 +24,7 @@ import MultipleSelectChip from 'src/components/form-select/multiple-select-chip'
 // -------------- Transitions ---------------
 const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-export default function ModalEditView({ showUp = false, values = {}, close = (f) => f }) {
+export default function ModalCarrier({ showUp = false, values = {}, close = (f) => f }) {
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState(values);
 
@@ -168,7 +168,7 @@ export default function ModalEditView({ showUp = false, values = {}, close = (f)
   );
 }
 
-ModalEditView.propTypes = {
+ModalCarrier.propTypes = {
   showUp: PropTypes.bool,
   values: PropTypes.object,
   close: PropTypes.func,
