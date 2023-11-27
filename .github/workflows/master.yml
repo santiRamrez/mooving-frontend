@@ -2,28 +2,26 @@ name: Deploy website on push
 
 #Controls when the workflow run
 on:
-  #Triggers the workflow on push or pull request events but only for the master branch
+  #Triggers the workflow on push or pull request events but only for the build branch
   push:
-    branches:
-      -master
+    branches: -build
 
 #A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   web-deploy:
-      name: Deploy
+    name: Deploy
 
-      runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Get latest code
-          uses: actions/checkout@v2
+    steps:
+      - name: Get latest code
+        uses: actions/checkout@v2
 
-        - name: Sync files
-          uses: SamKirkland/FTP-Deploy-Action@4.1.0
-          with:
-            server: ftp.tecnolatam.cl
-            username: ${{ secrets.FTP_ACCOUNT }}
-            password: ${{ secrets.FTP_PASSWORD }}
-            server-dir: /
-    
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: ftp.tecnolatam.cl
+          username: ${{ secrets.FTP_ACCOUNT }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /
