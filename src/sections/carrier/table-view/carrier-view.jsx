@@ -11,21 +11,18 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
-// import { users } from 'src/_mock/user';
-
 import Iconify from 'src/components/iconify';
-
-import TableNoData from '../table-no-data';
-import UserTableRow from '../user-table-row';
-import UserTableHead from '../user-table-head';
-import TableEmptyRows from '../table-empty-rows';
-import UserTableToolbar from '../user-table-toolbar';
-import { emptyRows, applyFilter, getComparator } from '../utils';
+import TableNoData from 'src/components/table/table-no-data';
+import UserTableRow from 'src/components/table/user-table-row';
+import UserTableHead from 'src/components/table/user-table-head';
+import TableEmptyRows from 'src/components/table/table-empty-rows';
+import UserTableToolbar from 'src/components/table/user-table-toolbar';
+import { emptyRows, applyFilter, getComparator } from 'src/components/table/utils';
 // import { id_ID } from '@faker-js/faker';
 
 // ----------------------------------------------------------------------
 
-export default function CarrierPage({ data = [], toEdit = (f) => f }) {
+export default function CarrierTableView({ data = [], toEdit = (f) => f }) {
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -175,7 +172,7 @@ export default function CarrierPage({ data = [], toEdit = (f) => f }) {
   );
 }
 
-CarrierPage.propTypes = {
+CarrierTableView.propTypes = {
   data: PropTypes.array,
   toEdit: PropTypes.func,
 };

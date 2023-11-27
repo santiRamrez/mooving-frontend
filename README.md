@@ -5,6 +5,8 @@ Mooving es un proyecto de mi grupo de estudio en INACAP que consiste en una app 
 ## Tech Stack
 
 **Client:** React, React-Router, Material UI Template
+**Requisitos Node:** v18.17.1
+**npm version:** 9.6.7
 
 ## Ejecuta de manera local
 

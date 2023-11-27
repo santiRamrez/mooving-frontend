@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-import { ShipmentsView } from 'src/sections/shipments/view';
+import { ShipmentsTableView } from 'src/sections/shipments/table-view';
 
 // ----------------------------------------------------------------------
 
@@ -11,7 +11,7 @@ export default function ShipmentsPage() {
         <title> Envíos | Mooving App </title>
       </Helmet>
 
-      <ShipmentsView />
+      <ShipmentsTableView />
     </>
   );
 }

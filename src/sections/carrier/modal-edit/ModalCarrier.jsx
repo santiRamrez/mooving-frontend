@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, forwardRef } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -21,12 +21,27 @@ import InputWord from 'src/components/form-inputs';
 import SingleSelect from 'src/components/form-select/single-selected';
 import MultipleSelectChip from 'src/components/form-select/multiple-select-chip';
 
-// -------------- Transitions ---------------
+// ----------------- Transitions ----------------
 const Transition = forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-export default function ModalEditView({ showUp = false, values = {}, close = (f) => f }) {
+export default function ModalCarrier({ showUp = false, values = {}, close = (f) => f }) {
   const [isLoading, setLoading] = useState(false);
-  const [data, setData] = useState(values);
+  const [data, setData] = useState({});
+
+  /* eslint-disable */
+  useEffect(() => {
+    if (showUp) {
+      setData({
+        name: values.name,
+        lastname: values.lastname,
+        local_id: values.local_id,
+        phone: values.phone,
+        status: values.status,
+        regions: values.scope,
+      });
+    }
+  }, [showUp]);
+  /* eslint-enable */
 
   const handleClose = () => {
     setData({});
@@ -57,8 +72,9 @@ export default function ModalEditView({ showUp = false, values = {}, close = (f)
     e.preventDefault();
 
     const keys = Object.keys(data);
-    const emptyValues = keys.filter((key) => data[key] !== '');
-    if (emptyValues) {
+    const emptyValues = keys.filter((key) => !data[key]);
+
+    if (emptyValues.length > 0) {
       alert('Complete todos los campos');
       return;
     }
@@ -66,6 +82,7 @@ export default function ModalEditView({ showUp = false, values = {}, close = (f)
     try {
       setLoading(true);
       // HTTP.postRecord(JSON.stringify(data), 'users').then((response) => console.log(response));
+      console.log(data);
     } catch (err) {
       console.log(err);
     }
@@ -168,7 +185,7 @@ export default function ModalEditView({ showUp = false, values = {}, close = (f)
   );
 }
 
-ModalEditView.propTypes = {
+ModalCarrier.propTypes = {
   showUp: PropTypes.bool,
   values: PropTypes.object,
   close: PropTypes.func,

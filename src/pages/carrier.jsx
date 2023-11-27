@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLoaderData } from 'react-router-dom';
 
-import { CarrierView } from 'src/sections/carrier/view';
-import ModalEditView from 'src/sections/modal-edit/ModalEditView';
+import { ModalCarrier } from 'src/sections/carrier/modal-edit';
+import { CarrierTableView } from 'src/sections/carrier/table-view';
 // ----------------------------------------------------------------------
 
 export default function CarrierPage() {
@@ -14,7 +14,6 @@ export default function CarrierPage() {
   const choosenEdit = (id) => {
     const selected = data.find((val) => val.local_id.toUpperCase() === id.toUpperCase());
     if (selected) {
-      console.log(selected);
       setModalEdit(true);
       setSelectedCarrier(selected);
     }
@@ -31,8 +30,8 @@ export default function CarrierPage() {
         <title> Transportistas | Mooving </title>
       </Helmet>
 
-      <CarrierView data={data} toEdit={(id) => choosenEdit(id)} />
-      <ModalEditView showUp={modalEdit} values={selectedCarrier} close={(id) => cleanData(id)} />
+      <CarrierTableView data={data} toEdit={(id) => choosenEdit(id)} />
+      <ModalCarrier showUp={modalEdit} values={selectedCarrier} close={(id) => cleanData(id)} />
     </>
   );
 }
