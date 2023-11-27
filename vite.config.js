@@ -6,6 +6,7 @@ import checker from 'vite-plugin-checker';
 // ----------------------------------------------------------------------
 
 export default defineConfig({
+  base: '/mooving-frontend/',
   plugins: [
     react(),
     checker({
