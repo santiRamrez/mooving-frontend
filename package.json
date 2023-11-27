@@ -1,6 +1,7 @@
 {
   "name": "mooving-react-materialui",
   "author": "Santiago Ramírez",
+  "homepage": "https://santiramrez.github.io/mooving-frontend/",
   "licence": "MIT",
   "version": "1.8.0",
   "private": false,
