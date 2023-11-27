@@ -14,7 +14,6 @@ export default function CarrierPage() {
   const choosenEdit = (id) => {
     const selected = data.find((val) => val.local_id.toUpperCase() === id.toUpperCase());
     if (selected) {
-      console.log(selected);
       setModalEdit(true);
       setSelectedCarrier(selected);
     }

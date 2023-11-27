@@ -21,7 +21,7 @@ import { emptyRows, applyFilter, getComparator } from 'src/components/table/util
 
 // ----------------------------------------------------------------------
 
-export default function PetitionerTableView({ data = [], toEdit = (f) => f }) {
+export default function ShipmentsTableView({ data = [], toEdit = (f) => f }) {
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -97,7 +97,7 @@ export default function PetitionerTableView({ data = [], toEdit = (f) => f }) {
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Listado de Solicitantes de Flete</Typography>
+        <Typography variant="h4">Listado de Envíos</Typography>
 
         <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
           Agregar transportista
@@ -171,7 +171,7 @@ export default function PetitionerTableView({ data = [], toEdit = (f) => f }) {
   );
 }
 
-PetitionerTableView.propTypes = {
+ShipmentsTableView.propTypes = {
   data: PropTypes.array,
   toEdit: PropTypes.func,
 };

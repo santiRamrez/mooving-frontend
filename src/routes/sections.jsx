@@ -39,6 +39,7 @@ const routes = createBrowserRouter([
       { path: 'dashboard', element: <IndexPage /> },
       { path: 'carrier', element: <CarrierPage />, loader: getCarriers },
       { path: 'petitioner', element: <PetitionersPage /> },
+      { path: 'shipments', element: <ShipmentsPage /> },
     ],
   },
   {
@@ -61,5 +62,4 @@ const routes = createBrowserRouter([
 
 export default routes;
 
-//  { path: 'shipments', element: <ShipmentsPage /> },
 //  { path: 'profile/:profileId', element: <ProfilePage /> },
