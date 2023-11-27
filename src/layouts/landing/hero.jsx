@@ -25,7 +25,7 @@ export default function Hero() {
           Mooving
         </Typography>
         <Typography align="left" variant="subtitle1">
-          una app para coordinar envíos de muebles y electrodomésticos
+          Una app para coordinar envíos de muebles y electrodomésticos 😁
         </Typography>
       </Box>
       <Box
