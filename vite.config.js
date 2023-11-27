@@ -6,7 +6,7 @@ import checker from 'vite-plugin-checker';
 // ----------------------------------------------------------------------
 
 export default defineConfig({
-  base: '/mooving-frontend/',
+  base: 'https://tecnolatam.cl/portfolio/mooving-app/',
   plugins: [
     react(),
     checker({
