@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Outlet, Navigate, createBrowserRouter } from 'react-router-dom';
+import { Outlet, Navigate, createHashRouter } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
 
@@ -21,7 +21,7 @@ export const Page404 = lazy(() => import('src/pages/page-not-found'));
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
-const routes = createBrowserRouter([
+const routes = createHashRouter([
   {
     path: '/',
     element: <LandingPage />,
