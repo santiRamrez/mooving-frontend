@@ -38,7 +38,7 @@ export default function AppView() {
             title="Weekly Sales"
             total={714000}
             color="success"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
+            icon={<img alt="icon" src="/#/assets/icons/glass/ic_glass_bag.png" />}
           />
         </Grid>
 
