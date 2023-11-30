@@ -5,7 +5,7 @@ import { faker } from '@faker-js/faker';
 const rut = 1000;
 const users = [...Array(24)].map((_, index) => ({
   id: faker.string.uuid(),
-  avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
+  avatarUrl: `/mooving-frontend/assets/images/avatars/avatar_${index + 1}.jpg`,
   name: faker.person.firstName(),
   lastname: faker.person.lastName(),
   email: faker.internet.email(),

@@ -14,6 +14,7 @@ import { alpha, useTheme } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
 
 import { useRouter } from 'src/routes/hooks';
+import { RouterLink } from 'src/routes/components';
 
 import { checkJWT } from 'src/utils/checkJWT';
 
@@ -125,7 +126,7 @@ export default function LoginView() {
       sx={{
         ...bgGradient({
           color: alpha(theme.palette.background.default, 0.9),
-          imgUrl: '/assets/background/overlay_4.jpg',
+          imgUrl: '/mooving-frontend/assets/background/overlay_4.jpg',
         }),
         height: 1,
       }}
@@ -150,7 +151,7 @@ export default function LoginView() {
 
           <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
             ¿Aún no tiene una cuenta creada?
-            <Link href="register" variant="subtitle2" sx={{ ml: 0.5 }}>
+            <Link component={RouterLink} href="/register" variant="subtitle2" sx={{ ml: 0.5 }}>
               Regístrese aquí
             </Link>
           </Typography>

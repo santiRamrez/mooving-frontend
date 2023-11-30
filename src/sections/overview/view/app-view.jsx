@@ -38,7 +38,7 @@ export default function AppView() {
             title="Weekly Sales"
             total={714000}
             color="success"
-            icon={<img alt="icon" src="/#/assets/icons/glass/ic_glass_bag.png" />}
+            icon={<img alt="icon" src="/mooving-frontend/assets/icons/glass/ic_glass_bag.png" />}
           />
         </Grid>
 
@@ -47,7 +47,7 @@ export default function AppView() {
             title="New Users"
             total={1352831}
             color="info"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+            icon={<img alt="icon" src="/mooving-frontend/assets/icons/glass/ic_glass_users.png" />}
           />
         </Grid>
 
@@ -56,7 +56,7 @@ export default function AppView() {
             title="Item Orders"
             total={1723315}
             color="warning"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
+            icon={<img alt="icon" src="/mooving-frontend/assets/icons/glass/ic_glass_buy.png" />}
           />
         </Grid>
 
@@ -65,7 +65,9 @@ export default function AppView() {
             title="Bug Reports"
             total={234}
             color="error"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
+            icon={
+              <img alt="icon" src="/mooving-frontend/assets/icons/glass/ic_glass_message.png" />
+            }
           />
         </Grid>
 
@@ -167,7 +169,7 @@ export default function AppView() {
               id: faker.string.uuid(),
               title: faker.person.jobTitle(),
               description: faker.commerce.productDescription(),
-              image: `/assets/images/covers/cover_${index + 1}.jpg`,
+              image: `/mooving-frontend/assets/images/covers/cover_${index + 1}.jpg`,
               postedAt: faker.date.recent(),
             }))}
           />
