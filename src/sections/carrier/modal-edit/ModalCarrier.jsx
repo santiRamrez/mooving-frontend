@@ -46,6 +46,7 @@ export default function ModalCarrier({ showUp = false, values = {}, close = (f) 
   const handleClose = () => {
     setData({});
     close(false);
+    setLoading(false);
   };
 
   const handleChange = (obj) => {
@@ -93,10 +94,9 @@ export default function ModalCarrier({ showUp = false, values = {}, close = (f) 
       <DialogContent>
         <Card
           sx={{
-            p: 4,
+            p: 2,
             width: 1,
             maxWidth: 500,
-            my: 2,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'spaceAround',
@@ -153,6 +153,15 @@ export default function ModalCarrier({ showUp = false, values = {}, close = (f) 
               regex={/^[a-z]+\.?_?\w+@[a-z]\w+\.([a-z][a-z]|[a-z][a-z][a-z])$/}
               value={(obj) => handleChange(obj)}
               text={values.email}
+            />
+            <InputWord
+              size="small"
+              name="id_car"
+              label="Patente"
+              helpText="Ej: 123PATE"
+              regex={/^\w$/}
+              value={(obj) => handleChange(obj)}
+              text={values.id_car}
             />
 
             <SingleSelect

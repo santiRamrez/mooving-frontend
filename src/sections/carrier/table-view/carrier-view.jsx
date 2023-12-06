@@ -13,11 +13,13 @@ import TablePagination from '@mui/material/TablePagination';
 
 import Iconify from 'src/components/iconify';
 import TableNoData from 'src/components/table/table-no-data';
-import UserTableRow from 'src/components/table/user-table-row';
-import UserTableHead from 'src/components/table/user-table-head';
 import TableEmptyRows from 'src/components/table/table-empty-rows';
-import UserTableToolbar from 'src/components/table/user-table-toolbar';
-import { emptyRows, applyFilter, getComparator } from 'src/components/table/utils';
+
+import CarrierTableRow from './carrier-table-row';
+import CarrierTableHead from './carrier-table-head';
+import CarrierTableToolbar from './carrier-table-toolbar';
+import { emptyRows, applyFilter, getComparator } from './utils';
+
 // import { id_ID } from '@faker-js/faker';
 
 // ----------------------------------------------------------------------
@@ -105,7 +107,7 @@ export default function CarrierTableView({ data = [], toEdit = (f) => f }) {
         </Button>
       </Stack>
       <Card>
-        <UserTableToolbar
+        <CarrierTableToolbar
           numSelected={selected.length}
           filterName={filterName}
           onFilterName={handleFilterByName}
@@ -113,7 +115,7 @@ export default function CarrierTableView({ data = [], toEdit = (f) => f }) {
 
         <TableContainer sx={{ overflow: 'auto' }}>
           <Table sx={{ minWidth: 800 }}>
-            <UserTableHead
+            <CarrierTableHead
               order={order}
               orderBy={orderBy}
               rowCount={data.length}
@@ -123,10 +125,13 @@ export default function CarrierTableView({ data = [], toEdit = (f) => f }) {
               headLabel={[
                 { id: 'name', label: 'Nombre', align: 'center' },
                 { id: 'lastname', label: 'Apellido' },
-                { id: 'email', label: 'Email', align: 'center' },
                 { id: 'local_id', label: 'Rut', align: 'center' },
+                { id: 'email', label: 'Email', align: 'center' },
+                { id: 'id_car', label: 'Patente', align: 'center' },
                 { id: 'phone', label: 'Teléfono', align: 'center' },
                 { id: 'scope', label: 'Región', align: 'center' },
+                { id: 'createdAt', label: 'Creación', align: 'center' },
+                { id: 'updatedAt', label: 'Modificación', align: 'center' },
                 { id: 'status', label: 'Status', align: 'center' },
                 { id: 'options', label: '', align: 'left' },
               ]}
@@ -135,7 +140,7 @@ export default function CarrierTableView({ data = [], toEdit = (f) => f }) {
               {dataFiltered
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => (
-                  <UserTableRow
+                  <CarrierTableRow
                     handleClick={() => handleClick(row.name)}
                     key={row.id}
                     name={row.name}
@@ -146,6 +151,7 @@ export default function CarrierTableView({ data = [], toEdit = (f) => f }) {
                     phone={row.phone}
                     scope={row.scope}
                     status={row.status}
+                    id_car={row.id_car}
                     selected={selected.indexOf(row.name) !== -1}
                     sendId={(id) => toEdit(id)}
                   />

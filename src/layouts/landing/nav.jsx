@@ -25,12 +25,17 @@ export default function Nav() {
   };
 
   const toRegister = () => {
-    router.push('/register');
     handleClose();
+    alert('Opcion deshabilitada');
   };
 
   const toLogin = () => {
     router.push('/login');
+    handleClose();
+  };
+
+  const toDashboard = () => {
+    router.push('/dashboard');
     handleClose();
   };
 
@@ -61,11 +66,12 @@ export default function Nav() {
         }}
         transformOrigin={{
           vertical: 'top',
-          horizontal: 'left',
+          horizontal: 'right',
         }}
       >
         <MenuItem onClick={toLogin}>Login</MenuItem>
         <MenuItem onClick={toRegister}>Registrarse</MenuItem>
+        <MenuItem onClick={toDashboard}>Dashboard</MenuItem>
       </Menu>
     </div>
   );

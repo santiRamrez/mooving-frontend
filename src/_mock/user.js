@@ -13,6 +13,7 @@ const users = [...Array(24)].map((_, index) => ({
   phone: sample(['9 8965 8965', '2 2222 5426']),
   scope: sample(['RM']),
   status: sample(['Pendiente', 'Verificado', 'Banned']),
+  id_car: sample(['KLKBEBE', 'HOLA123', 'KIKOCRAZY']),
 }));
 
 async function fakeNetwork(time) {

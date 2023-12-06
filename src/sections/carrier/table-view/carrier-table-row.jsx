@@ -16,7 +16,7 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function UserTableRow({
+export default function CarrierTableRow({
   selected,
   name,
   avatarUrl,
@@ -26,6 +26,9 @@ export default function UserTableRow({
   phone,
   scope,
   status,
+  id_car,
+  createdAt,
+  updatedAt,
   handleClick,
   sendId = (f) => f,
 }) {
@@ -53,11 +56,14 @@ export default function UserTableRow({
   return (
     <>
       <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
-        <TableCell padding="checkbox" size="small">
+        <TableCell padding="none" size="small" sx={{ display: 'flex' }}>
           <Checkbox disableRipple checked={selected} onChange={handleClick} />
+          <IconButton onClick={handleOpenMenu} sx={{ mx: '0px' }}>
+            <Iconify icon="eva:more-vertical-fill" />
+          </IconButton>
         </TableCell>
 
-        <TableCell scope="row" size="small" sx={{ maxWidth: 100, overflow: 'hidden' }}>
+        <TableCell scope="row" size="small" sx={{ maxWidth: 200, overflow: 'hidden' }}>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Avatar alt={name} src={avatarUrl} />
             <Typography variant="subtitle3" noWrap>
@@ -72,15 +78,23 @@ export default function UserTableRow({
           </Typography>
         </TableCell>
 
-        <TableCell size="small" sx={{ maxWidth: 100, overflow: 'hidden' }}>
-          <Typography variant="subtitle3">{email}</Typography>
-        </TableCell>
-
         <TableCell size="small" align="center" sx={{ maxWidth: 100, overflow: 'hidden' }}>
           {local_id}
         </TableCell>
 
-        <TableCell size="small" align="center" sx={{ maxWidth: 50, overflow: 'hidden' }}>
+        <TableCell size="small" sx={{ maxWidth: 120, overflow: 'hidden' }}>
+          <Typography variant="subtitle3">{email}</Typography>
+        </TableCell>
+
+        <TableCell size="small" align="center" sx={{ maxWidth: 100, overflow: 'hidden' }}>
+          {id_car}
+        </TableCell>
+
+        <TableCell
+          size="small"
+          align="center"
+          sx={{ maxWidth: 130, overflow: 'hidden', px: '5px', minWidth: 120 }}
+        >
           {phone}
         </TableCell>
 
@@ -88,14 +102,16 @@ export default function UserTableRow({
           {scope}
         </TableCell>
 
-        <TableCell size="small" padding="none" align="center">
-          <Label color={colorLabel(status)}>{status}</Label>
+        <TableCell padding="none" align="center">
+          {createdAt}
         </TableCell>
 
-        <TableCell size="small" align="left" padding="none">
-          <IconButton onClick={handleOpenMenu}>
-            <Iconify icon="eva:more-vertical-fill" />
-          </IconButton>
+        <TableCell padding="none" align="center">
+          {updatedAt}
+        </TableCell>
+
+        <TableCell size="small" padding="none" align="center">
+          <Label color={colorLabel(status)}>{status}</Label>
         </TableCell>
       </TableRow>
 
@@ -123,7 +139,7 @@ export default function UserTableRow({
   );
 }
 
-UserTableRow.propTypes = {
+CarrierTableRow.propTypes = {
   avatarUrl: PropTypes.any,
   name: PropTypes.any,
   lastname: PropTypes.any,
@@ -134,5 +150,8 @@ UserTableRow.propTypes = {
   phone: PropTypes.any,
   selected: PropTypes.any,
   status: PropTypes.string,
+  id_car: PropTypes.string,
+  createdAt: PropTypes.string,
+  updatedAt: PropTypes.string,
   sendId: PropTypes.func,
 };
