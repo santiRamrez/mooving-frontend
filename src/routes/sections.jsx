@@ -3,10 +3,10 @@ import { Outlet, Navigate, createHashRouter } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
 
-// import { getCarriers } from '../http/carriers';
+import { getCarriers } from '../http/carriers';
 
 // Imported functions of data should return a promise
-import { getCarriers } from 'src/_mock/user';
+// import { getCarriers } from 'src/_mock/user';
 
 export const LandingPage = lazy(() => import('src/pages/landing'));
 export const IndexPage = lazy(() => import('src/pages/app'));

@@ -47,11 +47,7 @@ export default function CarrierTableRow({
     sendId(local_id);
   };
 
-  const colorLabel = (str) => {
-    if (str === 'Pendiente') return 'warning';
-    if (str === 'Verificado') return 'success';
-    return 'error';
-  };
+  const colorLabel = (str) => (str ? 'success' : 'error');
 
   return (
     <>
@@ -111,7 +107,7 @@ export default function CarrierTableRow({
         </TableCell>
 
         <TableCell size="small" padding="none" align="center">
-          <Label color={colorLabel(status)}>{status}</Label>
+          <Label color={colorLabel(status)}>{status ? 'Verificado' : 'Pendiente'}</Label>
         </TableCell>
       </TableRow>
 
@@ -149,7 +145,7 @@ CarrierTableRow.propTypes = {
   local_id: PropTypes.any,
   phone: PropTypes.any,
   selected: PropTypes.any,
-  status: PropTypes.string,
+  status: PropTypes.bool,
   id_car: PropTypes.string,
   createdAt: PropTypes.string,
   updatedAt: PropTypes.string,

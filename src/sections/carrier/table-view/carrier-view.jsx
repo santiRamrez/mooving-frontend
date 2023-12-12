@@ -11,6 +11,8 @@ import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
+import { formatDateOfTables } from 'src/utils/format-time';
+
 import Iconify from 'src/components/iconify';
 import TableNoData from 'src/components/table/table-no-data';
 import TableEmptyRows from 'src/components/table/table-empty-rows';
@@ -19,8 +21,6 @@ import CarrierTableRow from './carrier-table-row';
 import CarrierTableHead from './carrier-table-head';
 import CarrierTableToolbar from './carrier-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from './utils';
-
-// import { id_ID } from '@faker-js/faker';
 
 // ----------------------------------------------------------------------
 
@@ -142,16 +142,18 @@ export default function CarrierTableView({ data = [], toEdit = (f) => f }) {
                 .map((row) => (
                   <CarrierTableRow
                     handleClick={() => handleClick(row.name)}
-                    key={row.id}
+                    key={row._id}
                     name={row.name}
                     lastname={row.lastname}
                     email={row.email}
-                    local_id={row.local_id}
-                    avatarUrl={row.avatarUrl}
+                    local_id={row._id}
+                    avatarUrl={row.image}
                     phone={row.phone}
-                    scope={row.scope}
+                    scope="RM"
                     status={row.status}
-                    id_car={row.id_car}
+                    id_car={row.car}
+                    createdAt={formatDateOfTables(row.created_at)}
+                    updatedAt={formatDateOfTables(row.updated_at)}
                     selected={selected.indexOf(row.name) !== -1}
                     sendId={(id) => toEdit(id)}
                   />

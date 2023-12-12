@@ -25,3 +25,20 @@ export function fToNow(date) {
       })
     : '';
 }
+
+export function formatDateOfTables(timstamp) {
+  const date = new Date(timstamp);
+
+  // Options for formatting the date
+  const options = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  };
+
+  // Format the date
+  return date.toLocaleDateString('ES', options);
+}

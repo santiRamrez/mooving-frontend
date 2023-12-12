@@ -133,7 +133,7 @@ export default function ModalCarrier({ showUp = false, values = {}, close = (f) 
                 helpText="Ej: 9.345.678-9"
                 regex={/^\d{1,2}\.\d\d\d\.\d\d\d-(\d|k)$/i}
                 value={(obj) => handleChange(obj)}
-                text={values.local_id}
+                text={values._id}
               />
               <InputWord
                 size="small"
@@ -161,13 +161,13 @@ export default function ModalCarrier({ showUp = false, values = {}, close = (f) 
               helpText="Ej: 123PATE"
               regex={/^\w$/}
               value={(obj) => handleChange(obj)}
-              text={values.id_car}
+              text={values.car}
             />
 
             <SingleSelect
               options={['Verificado', 'Banned', 'Pendiente']}
               label="Status"
-              value={values.status}
+              value={values.status ? 'Verificado' : 'Pendiente'}
             />
 
             <MultipleSelectChip
